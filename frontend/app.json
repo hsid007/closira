@@ -1,0 +1,34 @@
+{
+  "expo": {
+    "name": "Closira",
+    "slug": "closira",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "scheme": "closira",
+    "userInterfaceStyle": "light",
+    "newArchEnabled": true,
+    "splash": {
+      "backgroundColor": "#0B1220",
+      "resizeMode": "contain"
+    },
+    "assetBundlePatterns": ["**/*"],
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.closira.app"
+    },
+    "android": {
+      "adaptiveIcon": {
+        "backgroundColor": "#0B1220"
+      },
+      "package": "com.closira.app"
+    },
+    "web": {
+      "bundler": "metro",
+      "output": "single"
+    },
+    "plugins": ["expo-router"],
+    "experiments": {
+      "typedRoutes": true
+    }
+  }
+}

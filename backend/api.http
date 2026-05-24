@@ -1,0 +1,86 @@
+### Closira API — smoke test requests
+### Use with VS Code "REST Client" extension or convert to curl.
+
+@host = http://localhost:8000
+
+### 1. Health check
+GET {{host}}/health
+
+### 2. Create enquiry — pricing question
+POST {{host}}/enquiry
+Content-Type: application/json
+
+{
+  "customer_name": "Sarah M.",
+  "customer_contact": "+91 98765 43210",
+  "channel": "whatsapp",
+  "message": "Hi! What's the price for a 2BHK deep cleaning?"
+}
+
+### 3. Create enquiry — booking
+POST {{host}}/enquiry
+Content-Type: application/json
+
+{
+  "customer_name": "Rohan K.",
+  "customer_contact": "rohan@example.com",
+  "channel": "email",
+  "message": "I want to book an appointment for Saturday morning."
+}
+
+### 4. Create enquiry — complaint (auto-escalates)
+POST {{host}}/enquiry
+Content-Type: application/json
+
+{
+  "customer_name": "Anita D.",
+  "customer_contact": "+91 99887 11223",
+  "channel": "whatsapp",
+  "message": "Very unhappy with the service. I want a refund and to speak to a manager."
+}
+
+### 5. Create enquiry — no SOP match (auto-escalates)
+POST {{host}}/enquiry
+Content-Type: application/json
+
+{
+  "customer_name": "Vikram R.",
+  "channel": "call",
+  "message": "Just calling to say hello."
+}
+
+### 6. List all enquiries
+GET {{host}}/enquiry
+
+### 7. List only escalated enquiries
+GET {{host}}/enquiry?status=escalated
+
+### 8. Get full conversation history (replace ID with one from step 2)
+GET {{host}}/enquiry/enq_REPLACE/history
+
+### 9. Schedule a follow-up
+POST {{host}}/enquiry/enq_REPLACE/followup
+Content-Type: application/json
+
+{
+  "delay_minutes": 60,
+  "message_template": "Hi Sarah, just checking in — happy to share more details."
+}
+
+### 10. Escalate an enquiry manually
+POST {{host}}/enquiry/enq_REPLACE/escalate
+Content-Type: application/json
+
+{
+  "reason": "Customer requested manager after pricing discussion.",
+  "urgency": "high"
+}
+
+### 11. List follow-ups
+GET {{host}}/follow-ups
+
+### 12. Dashboard stats
+GET {{host}}/stats
+
+### 13. Resolve enquiry
+POST {{host}}/enquiry/enq_REPLACE/resolve
